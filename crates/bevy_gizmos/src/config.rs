@@ -177,7 +177,7 @@ impl Default for GizmoConfig {
             line_width: 2.,
             line_perspective: false,
             line_style: GizmoLineStyle::Solid,
-            depth_bias: 0.,
+            depth_bias: -1.0,
             render_layers: Default::default(),
 
             line_joints: GizmoLineJoint::None,
@@ -190,6 +190,7 @@ pub(crate) struct GizmoMeshConfig {
     pub line_perspective: bool,
     pub line_style: GizmoLineStyle,
     pub render_layers: RenderLayers,
+    pub depth_bias: f32,
 }
 
 impl From<&GizmoConfig> for GizmoMeshConfig {
@@ -198,6 +199,7 @@ impl From<&GizmoConfig> for GizmoMeshConfig {
             line_perspective: item.line_perspective,
             line_style: item.line_style,
             render_layers: item.render_layers,
+            depth_bias: item.depth_bias,
         }
     }
 }
