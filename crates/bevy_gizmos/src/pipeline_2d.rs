@@ -291,7 +291,7 @@ fn queue_line_gizmos_2d(
                 entity,
                 draw_function,
                 pipeline,
-                sort_key: FloatOrd(f32::INFINITY),
+                sort_key: if config.depth_bias <= -1.0 { FloatOrd(f32::INFINITY) } else { FloatOrd(-config.depth_bias) },
                 batch_range: 0..1,
                 dynamic_offset: None,
             });
