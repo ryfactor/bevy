@@ -25,13 +25,19 @@ fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
         Hold 'Up' or 'Down' to change the line width of round gizmos\n\
         Press '1' or '2' to toggle the visibility of straight gizmos or round gizmos\n\
         Press 'U' or 'I' to cycle through line styles for straight or round gizmos\n\
-        Press 'J' or 'K' to cycle through line joins for straight or round gizmos",
+        Press 'J' or 'K' to cycle through line joins for straight or round gizmos"\n\
+        Press 'Home' or 'End' to push round gizmos to the front or the back",
         TextStyle {
             font: asset_server.load("fonts/FiraMono-Medium.ttf"),
             font_size: 24.,
             color: Color::WHITE,
         },
     ));
+    commands.spawn(SpriteBundle {
+        texture: asset_server.load("branding/bevy_bird_dark.png"),
+        transform: Transform::from_translation(Vec3::new(0., 0., 0.4,)),
+        ..default()
+    });
 }
 
 fn draw_example_collection(
@@ -148,5 +154,11 @@ fn update_config(
             GizmoLineJoint::Round(_) => GizmoLineJoint::None,
             GizmoLineJoint::None => GizmoLineJoint::Bevel,
         };
+    }
+    if keyboard.just_pressed(KeyCode::Home) {
+        my_config.depth_bias += -0.5;
+    }
+    if keyboard.just_pressed(KeyCode::End) {
+        my_config.depth_bias += 0.5;
     }
 }
